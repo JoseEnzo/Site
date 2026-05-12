@@ -1,0 +1,58 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>// acesso</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="grid-bg"></div>
+
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <div class="form-container">
+
+    <div class="login-hero">
+      <p class="brand">home garage</p>
+      <h1>ACESSO<br><span>SISTEMA</span></h1>
+      <p class="subtitle">identificação obrigatória</p>
+    </div>
+
+    <div class="field-group">
+      <p class="field-label">e-mail</p>
+      <ion-item lines="none">
+        <ion-input [(ngModel)]="dados.email" type="email" placeholder="seu@email.com"></ion-input>
+      </ion-item>
+    </div>
+
+    <div class="field-group">
+      <p class="field-label">senha</p>
+      <ion-item lines="none">
+        <ion-input [(ngModel)]="dados.senha" type="password" placeholder="••••••••"></ion-input>
+      </ion-item>
+    </div>
+
+    @if (erro) {
+      <p class="msg-feedback error">{{ erro }}</p>
+    }
+    @if (sucesso) {
+      <p class="msg-feedback success">{{ sucesso }}</p>
+    }
+
+    <div class="btn-submit">
+      <ion-button expand="block" (click)="logar()" [disabled]="carregando">
+        @if (carregando) {
+          <span class="spinner-wrap">conectando</span>
+        } @else {
+          entrar no sistema
+        }
+      </ion-button>
+    </div>
+
+    <div class="form-footer">
+      sem conta? <a [routerLink]="['/tabs/tab1']">cadastre-se aqui</a>
+    </div>
+
+  </div>
+</ion-content>

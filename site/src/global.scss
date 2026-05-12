@@ -1,0 +1,384 @@
+/*
+ * App Global CSS
+ * ----------------------------------------------------------------------------
+ * Put style rules here that you want to apply globally. These styles are for
+ * the entire app and not just one component. Additionally, this file can be
+ * used as an entry point to import other CSS/Sass files to be included in the
+ * output CSS.
+ * For more information on global stylesheets, visit the documentation:
+ * https://ionicframework.com/docs/layout/global-stylesheets
+ */
+
+/* Core CSS required for Ionic components to work properly */
+@import "@ionic/angular/css/core.css";
+
+/* Basic CSS for apps built with Ionic */
+@import "@ionic/angular/css/normalize.css";
+@import "@ionic/angular/css/structure.css";
+@import "@ionic/angular/css/typography.css";
+@import "@ionic/angular/css/display.css";
+
+/* Optional CSS utils that can be commented out */
+@import "@ionic/angular/css/padding.css";
+@import "@ionic/angular/css/float-elements.css";
+@import "@ionic/angular/css/text-alignment.css";
+@import "@ionic/angular/css/text-transformation.css";
+@import "@ionic/angular/css/flex-utils.css";
+
+/**
+ * Ionic Dark Mode
+ * -----------------------------------------------------
+ * For more info, please see:
+ * https://ionicframework.com/docs/theming/dark-mode
+ */
+
+/* @import "@ionic/angular/css/palettes/dark.always.css"; */
+/* @import "@ionic/angular/css/palettes/dark.class.css"; */
+@import '@ionic/angular/css/palettes/dark.system.css';
+ion-tab-bar {
+  --background: #111;
+  --color: #555;
+  --color-selected: #1565C0;
+  border-top: 0.5px solid #222;
+}
+.hero {
+  background: #0d0d0d;
+  padding: 24px 20px 40px;
+  @media (min-width: 768px) { padding: 40px 10%; }
+
+  &.danger { background: #1a0505; }
+  .hero-sub { color: #555; font-size: 13px; margin: 0 0 4px; }
+  .hero-title { color: white; font-size: 22px; font-weight: 500; margin: 0 0 4px; }
+}
+
+.content {
+  background: #111;
+  border-radius: 16px 16px 0 0;
+  margin-top: -16px;
+  padding: 24px 16px;
+  @media (min-width: 768px) { padding: 40px 10%; }
+}
+
+.form-group { margin-bottom: 16px; }
+
+.form-label { color: #90CAF9; font-size: 13px; margin: 0 0 6px; }
+
+.input-custom {
+  --background: #1a1a1a;
+  --color: #ddd;
+  --placeholder-color: #555;
+  --border-radius: 12px;
+  --padding-start: 16px;
+  border: 0.5px solid #333;
+  border-radius: 12px;
+}
+
+.btn-primary {
+  --background: #1565C0;
+  --border-radius: 12px;
+  margin-top: 8px;
+}
+
+.btn-danger {
+  --background: #e53935;
+  --border-radius: 12px;
+  margin-top: 8px;
+}
+
+.mensagem {
+  color: #90CAF9;
+  font-size: 13px;
+  text-align: center;
+  margin-top: 12px;
+}
+
+.aviso {
+  background: #1a0505;
+  border: 0.5px solid #5a1a1a;
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 20px;
+  p { color: #e57373; font-size: 14px; margin: 0; }
+}
+/* ============================================
+   GOWFIT — global.scss
+   Estilos globais reutilizáveis em toda a app
+   ============================================ */
+
+/* ---- VARIÁVEIS ---- */
+:root {
+  --garage-orange: #ff3c00;
+  --garage-orange-glow: rgba(255, 60, 0, 0.3);
+  --garage-dark: #0a0a0a;
+  --garage-surface: #111111;
+  --garage-border: #1e1e1e;
+  
+  --status-pending: #ffca28;
+  --status-success: #00c853;
+  --status-error: #ff3c00;
+  
+  --font-mono: 'Courier New', monospace;
+}
+/* ---- COMPONENTES NATIVOS IONIC ---- */
+ion-toolbar {
+  --background: var(--garage-dark);
+  --border-width: 0 0 1px 0;
+  --border-color: var(--garage-border);
+}
+
+ion-tab-bar {
+  --background: rgba(10, 10, 10, 0.8);
+  backdrop-filter: blur(12px); // Efeito de vidro que sugerimos
+  border-top: 1px solid var(--garage-border);
+  height: 65px;
+}
+
+/* ---- ESTILO DE TEXTO GARAGE ---- */
+.logo-text {
+  font-family: 'Bebas Neue', sans-serif; // Se não tiver a fonte, usa Arial Black
+  font-size: 24px;
+  letter-spacing: 2px;
+  color: #fff;
+  .logo-accent { color: var(--garage-orange); }
+}
+
+/* ---- CARDS E CONTAINERS ---- */
+.form-card {
+  background: var(--garage-surface);
+  border-radius: 24px 24px 0 0;
+  margin-top: -24px;
+  padding: 30px 20px;
+  border: 1px solid var(--garage-border);
+  border-bottom: none;
+}
+
+/* ---- INPUTS INDUSTRIAIS ---- */
+.input-custom {
+  --background: #161616;
+  --color: #ffffff;
+  --placeholder-color: #444;
+  --border-radius: 4px; // Menos arredondado = mais industrial
+  --padding-start: 16px;
+  border: 1px solid var(--garage-border);
+  margin-bottom: 12px;
+  transition: 0.3s;
+
+  &:focus-within {
+    border-color: var(--garage-orange);
+    box-shadow: 0 0 10px var(--garage-orange-glow);
+  }
+}
+
+/* ---- BOTÕES DE ALTA PERFORMANCE ---- */
+.btn-primary {
+  --background: var(--garage-orange);
+  --color: #fff;
+  --border-radius: 4px;
+  font-family: var(--font-mono);
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  height: 50px;
+  margin: 10px 0;
+  
+  &:active { transform: scale(0.98); }
+}
+
+/* ---- TOAST PERSONALIZADO (Aquele que sugerimos) ---- */
+.garage-toast {
+  --background: var(--garage-surface);
+  --color: var(--garage-orange);
+  --button-color: #fff;
+  border: 1px solid var(--garage-orange);
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+}
+
+/* ---- ANIMAÇÃO DE PULSO PARA O ONLINE ---- */
+@keyframes pulse-orange {
+  0% { box-shadow: 0 0 0 0 rgba(255, 60, 0, 0.4); }
+  70% { box-shadow: 0 0 0 10px rgba(255, 60, 0, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(255, 60, 0, 0); }
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--garage-orange);
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 8px;
+  animation: pulse-orange 2s infinite;
+}
+// =====================
+// IONIC OVERRIDES GLOBAL
+// =====================
+
+// Inputs e Labels
+ion-item {
+  --background: #0f0f0f;
+  --background-focused: #0f0f0f;
+  --background-hover: #0f0f0f;
+  --color: #ffffff;
+  --border-color: #1c1c1c;
+  --highlight-color-focused: #ff3c00;
+  --padding-start: 14px;
+}
+
+ion-label {
+  color: #888 !important;
+  font-family: 'Courier New', monospace !important;
+  font-size: 0.75rem !important;
+  letter-spacing: 2px !important;
+  text-transform: uppercase !important;
+}
+
+ion-input {
+  --color: #ffffff;
+  --placeholder-color: #2a2a2a;
+  caret-color: #ff3c00;
+  font-family: 'Courier New', monospace;
+}
+
+ion-textarea {
+  --color: #ffffff !important;
+  --placeholder-color: #555;
+  --placeholder-opacity: 1;
+  caret-color: #ff3c00;
+  font-family: 'Courier New', monospace;
+}
+
+// Cards
+ion-card {
+  --background: #0f0f0f;
+  --color: #ffffff;
+  color: #ffffff;
+}
+
+ion-card-content {
+  color: #888 !important;
+}
+
+// Badges
+ion-badge {
+  font-family: 'Courier New', monospace;
+  letter-spacing: 2px;
+  font-size: 0.6rem;
+  text-transform: uppercase;
+}
+
+// Chips
+ion-chip {
+  --background: #1c1c1c;
+  --color: #888;
+  border: 1px solid #1c1c1c;
+  font-family: 'Courier New', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 2px;
+}
+
+// Botões
+ion-button {
+  font-family: 'Courier New', monospace;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  font-size: 0.72rem;
+}
+
+// Refresher
+ion-refresher {
+  --background: #080808;
+  --color: #ff3c00;
+}
+
+// Toast
+ion-toast {
+  --background: #0f0f0f;
+  --color: #ffffff;
+  --border-color: #1c1c1c;
+  --border-style: solid;
+  --border-width: 1px;
+  font-family: 'Courier New', monospace;
+  letter-spacing: 2px;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+}
+
+// Tab bar
+ion-tab-bar {
+  --background: #080808;
+  --border: 1px solid #1c1c1c;
+}
+
+ion-tab-button {
+  --color: #333;
+  --color-selected: #ff3c00;
+  font-family: 'Courier New', monospace;
+  font-size: 0.55rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+// Scrollbar
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: #080808;
+}
+::-webkit-scrollbar-thumb {
+  background: #ff3c00;
+  border-radius: 0;
+}
+
+// Seleção de texto
+::selection {
+  background: rgba(255, 60, 0, 0.3);
+  color: #fff;
+}
+input, textarea {
+  color: #ffffff !important;
+  caret-color: #ff3c00;
+
+  &::placeholder {
+    color: #555 !important;
+    opacity: 1 !important;
+  }
+}
+input:-moz-placeholder,
+textarea:-moz-placeholder { color: #555 !important; }
+
+input::-moz-placeholder,
+textarea::-moz-placeholder { color: #555 !important; }
+.garage-alert {
+  --background: #0f0f0f;
+  --color: #ffffff;
+
+  .alert-title {
+    color: #fff !important;
+    font-family: 'Courier New', monospace !important;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+
+  .alert-message {
+    color: #666 !important;
+    font-family: 'Courier New', monospace !important;
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+  }
+
+  .alert-button-group {
+    border-top: 1px solid #1c1c1c;
+  }
+
+  .alert-button {
+    color: #ff3c00 !important;
+    font-family: 'Courier New', monospace !important;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-size: 0.7rem;
+
+    &:first-child { color: #444 !important; }
+  }
+}

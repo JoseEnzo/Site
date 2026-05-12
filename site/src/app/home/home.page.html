@@ -1,0 +1,200 @@
+<ion-content [fullscreen]="true">
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content pullingIcon="chevron-down-circle-outline" refreshingSpinner="dots"></ion-refresher-content>
+  </ion-refresher>
+
+  <div class="grid-bg" aria-hidden="true"></div>
+  <div class="noise-overlay" aria-hidden="true"></div>
+
+  <div class="user-status-bar">
+    @if (usuarioLogado) {
+      <div class="user-pill active animate-slide-in">
+        <div class="user-meta">
+          <ion-icon name="person-circle-outline"></ion-icon>
+          <div class="user-text">
+            <span class="status-label">OPERADOR ATIVO</span>
+            <span class="user-name">{{ usuarioLogado.nome }}</span>
+          </div>
+        </div>
+        <button class="logout-btn" (click)="logout()">
+          <ion-icon name="log-out-outline"></ion-icon>
+        </button>
+      </div>
+    } @else {
+      <div class="user-pill offline animate-slide-in" [routerLink]="['/tabs/tab2']">
+        <ion-icon name="person-circle-outline"></ion-icon>
+        <div class="user-text">
+          <span class="status-label pulse">SISTEMA OFFLINE</span>
+          <span class="user-name">IDENTIFIQUE-SE</span>
+        </div>
+      </div>
+    }
+  </div>
+
+  <header class="hero">
+    <div class="scanner-line"></div>
+    <div class="hero-particles">
+      <span></span><span></span><span></span>
+      <span></span><span></span><span></span>
+    </div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">oficina artesanal • carros antigos • projetos únicos</p>
+      <h1 class="hero-title">
+        <span class="white-text">HOME</span>
+        <span class="glow-text">GARAGE</span>
+      </h1>
+      <div class="hero-footer-wrapper">
+        <p class="hero-handle">@modifyc_cars</p>
+        <div class="badge-container">
+          <div class="hero-badge-glow">
+            <span class="dot"></span>
+            construção de veículos artesanais
+          </div>
+          <div class="accent-line"></div>
+        </div>
+      </div>
+    </div>
+    <div class="scroll-indicator">
+      <span></span>
+      <div class="vertical-line"></div>
+    </div>
+  </header>
+
+  <section id="servicos">
+    <div class="section-header reveal">
+      <h2 class="section-title">Nossos <span>Serviços</span></h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="services-grid">
+      @for (servico of servicos; track servico.id) {
+        <div class="service-card ion-activatable reveal-card" 
+             (click)="irPara(servico.slug)"
+             [style.--delay]="(servico.id * 80) + 'ms'">
+          <ion-ripple-effect></ion-ripple-effect>
+          <div class="card-glow"></div>
+          <ion-icon class="service-icon" [name]="servico.icone"></ion-icon>
+          <span class="service-num">{{ servico.id | number:'2.0-0' }}</span>
+          <h3 class="service-name">{{ servico.nome }}</h3>
+          <p class="service-desc">{{ servico.descricao }}</p>
+          <div class="card-arrow">
+            <ion-icon name="arrow-forward-outline"></ion-icon>
+          </div>
+        </div>
+      }
+    </div>
+  </section>
+
+<section id="orcamento-cta">
+  <div class="orcamento-banner ion-activatable" (click)="validarAcesso('/tabs/orcamento')">
+    <ion-ripple-effect></ion-ripple-effect>
+    <div class="orcamento-banner-content">
+      <span class="orcamento-eyebrow">gratuito • rápido • sem compromisso</span>
+      <h2 class="orcamento-title">Solicite seu <span>Orçamento</span></h2>
+      <p class="orcamento-sub">Preencha o formulário e entraremos em contato via WhatsApp.</p>
+    </div>
+    <div class="orcamento-arrow">
+      <ion-icon name="arrow-forward-outline"></ion-icon>
+    </div>
+  </div>
+</section>
+
+  <section id="foco">
+    <div class="foco-container reveal">
+      <h2 class="foco-title">Veículos<br><span class="highlight">artesanais</span><br>do zero.</h2>
+      <div class="foco-content">
+        <p class="foco-desc">
+          Nosso diferencial é a construção de veículos artesanais <strong>do zero ao acabamento</strong>,
+          especializada em clássicos. Cada projeto na Home Garage é uma peça única de engenharia e arte.
+        </p>
+        <div class="foco-tags">
+          <ion-chip outline="true">#carrosantigos</ion-chip>
+          <ion-chip outline="true">#projetosúnicos</ion-chip>
+          <ion-chip outline="true">#handmade</ion-chip>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="sobre">
+    <div class="section-header reveal">
+      <span class="section-badge">Historia & Paixão</span>
+      <h2 class="section-title">Sobre <span>Nós</span></h2>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="about-container">
+      <div class="about-content reveal">
+        <p>
+          O nosso diferencial é a construção de veículos artesanais
+          <strong>do zero ao acabamento</strong>, especializada em clássicos.
+        </p>
+        <p>
+          Cada projeto na Home Garage é uma peça única de engenharia e arte.
+        </p>
+
+        <div class="about-stats">
+          <div class="stat-item reveal-card" [style.--delay]="'0ms'">
+            <span class="stat-num">100%</span>
+            <span class="stat-desc">Feito a mão</span>
+          </div>
+          <div class="stat-item reveal-card" [style.--delay]="'150ms'">
+            <span class="stat-num">+20</span>
+            <span class="stat-desc">Projetos</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="about-image reveal">
+        <div class="image-placeholder" style="background-image: url('assets/sua-foto.jpg')"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contato">
+    <div class="contact-card reveal">
+      <div class="contact-info">
+        <span class="contact-label">Fale com nosso especialista</span>
+        <h2 class="contact-number">(18) 98121-2833</h2>
+      </div>
+      <div class="contact-buttons">
+        <ion-button href="https://wa.me/5518981212833" target="_blank" fill="solid" class="btn-whatsapp">
+          <ion-icon slot="start" name="logo-whatsapp"></ion-icon>
+          WhatsApp
+        </ion-button>
+        <ion-button href="tel:+5518981212833" fill="outline" class="btn-call">
+          <ion-icon slot="start" name="call-outline"></ion-icon>
+          Ligar Agora
+        </ion-button>
+      </div>
+    </div>
+  </section>
+
+  <footer class="main-footer">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <h3 class="footer-brand">HOME<span>GARAGE</span></h3>
+        <p class="footer-bio">Construção de veículos artesanais e restauração de clássicos com precisão e paixão.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navegação</h4>
+        <ul class="footer-links">
+          <li><a href="#hero">Início</a></li>
+          <li><a href="#servicos">Serviços</a></li>
+          <li><a href="#sobre">Sobre Nós</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Siga-nos</h4>
+        <div class="social-icons">
+          <a href="https://www.instagram.com/modifyc_cars/"><ion-icon name="logo-instagram"></ion-icon></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Home Garage. Todos os direitos reservados.</p>
+      <span class="system-status"><span class="dot"></span> Sistema Online</span>
+    </div>
+  </footer>
+
+</ion-content>

@@ -1,0 +1,39 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "mysql"
+}
+
+model User {
+  id         Int         @id @default(autoincrement())
+  email      String?     @unique @db.VarChar(255)
+  nome       String?     @db.VarChar(255)
+  senha      String?     @db.VarChar(255)
+  telefone   String?     @db.VarChar(13)
+  orcamentos Orcamento[]
+}
+
+model Servico {
+  id        Int      @id @default(autoincrement())
+  nome      String
+  descricao String
+  icone     String
+  slug      String   @unique
+  createdAt DateTime @default(now())
+}
+
+model Orcamento {
+  id        Int      @id @default(autoincrement())
+  servico   String
+  veiculo   String
+  descricao String   @db.Text
+  contato   String
+  createdAt DateTime @default(now())
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id])
+
+  @@index([userId], map: "Orcamento_userId_fkey")
+}

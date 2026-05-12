@@ -1,0 +1,72 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>// cadastro</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="grid-bg"></div>
+
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <div class="form-container">
+
+    <div class="login-hero">
+      <p class="brand">home garage</p>
+      <h1>NOVO<br><span>OPERADOR</span></h1>
+      <p class="subtitle">crie seu acesso</p>
+    </div>
+
+    <div class="field-group">
+      <p class="field-label">e-mail</p>
+      <ion-item lines="none">
+        <ion-input [(ngModel)]="dados.email" type="email" placeholder="seu@email.com"></ion-input>
+      </ion-item>
+    </div>
+
+    <div class="field-group">
+      <p class="field-label">nome completo</p>
+      <ion-item lines="none">
+        <ion-input [(ngModel)]="dados.nome" type="text" placeholder="seu nome"></ion-input>
+      </ion-item>
+    </div>
+
+    <div class="field-group">
+      <p class="field-label">senha</p>
+      <ion-item lines="none">
+        <ion-input [(ngModel)]="dados.senha" type="password" placeholder="••••••••"></ion-input>
+      </ion-item>
+    </div>
+
+    <div class="field-group">
+      <p class="field-label">telefone</p>
+      <ion-item lines="none">
+        <ion-input [(ngModel)]="dados.telefone" type="tel" placeholder="(00) 00000-0000"></ion-input>
+      </ion-item>
+    </div>
+
+    @if (erro) {
+      <p class="msg-feedback error">{{ erro }}</p>
+    }
+    @if (sucesso) {
+      <p class="msg-feedback success">{{ sucesso }}</p>
+    }
+
+    <div class="btn-submit">
+      <ion-button expand="block" (click)="cadastrar()" [disabled]="carregando">
+        @if (carregando) {
+          <span class="spinner-wrap">registrando</span>
+        } @else {
+          criar conta
+        }
+      </ion-button>
+    </div>
+
+    <div class="form-footer">
+      já tem conta? <a [routerLink]="['/tabs/tab2']">conecte-se</a>
+    </div>
+
+  </div>
+</ion-content>

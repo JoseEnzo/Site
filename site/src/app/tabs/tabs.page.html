@@ -1,0 +1,17 @@
+<ion-tabs>
+  <ion-tab-bar slot="bottom" class="custom-tab-bar">
+    
+    <ion-tab-button tab="home" href="/tabs/home">
+      <ion-icon name="home-outline"></ion-icon>
+      <ion-label>Início</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button (click)="validarAcesso('/tabs/tab3')" class="btn-destaque">
+      <div class="icon-circle">
+        <ion-icon name="hammer-outline"></ion-icon>
+      </div>
+      <ion-label>Orçamentos</ion-label>
+    </ion-tab-button>
+
+  </ion-tab-bar>
+</ion-tabs>

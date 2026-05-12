@@ -1,0 +1,230 @@
+<ion-content [fullscreen]="true">
+  <div class="grid-bg" aria-hidden="true"></div>
+
+  <!-- HEADER -->
+  <div class="page-header">
+    <button class="back-btn" routerLink="/tabs/home">
+      <ion-icon name="arrow-back-outline"></ion-icon>
+    </button>
+    <div class="header-brand">HOME<span>GARAGE</span></div>
+    <div class="header-status">
+      <span class="status-dot"></span>
+      <span class="status-txt">online</span>
+    </div>
+  </div>
+
+  <!-- ======================== -->
+  <!--        FORMULÁRIO        -->
+  <!-- ======================== -->
+  @if (!enviado) {
+
+    <div class="hero-section">
+      <p class="eyebrow">gratuito • rápido • sem compromisso</p>
+      <h1 class="hero-title">
+        <span class="white">ORÇA</span>
+        <span class="outline">MENTO</span>
+      </h1>
+      <p class="hero-sub">preencha os dados abaixo e entraremos em contato via whatsapp</p>
+    </div>
+
+    <div class="form-container">
+
+      <div class="field-group">
+        <label class="field-label">
+          <span class="label-prefix">//</span>
+          <ion-icon name="hammer-outline"></ion-icon>
+          tipo de serviço
+        </label>
+        <div class="input-wrapper">
+          <input
+            class="input-custom"
+            type="text"
+            placeholder="ex: funilaria, pintura, polimento..."
+            [(ngModel)]="dados.servico"
+          />
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label class="field-label">
+          <span class="label-prefix">//</span>
+          <ion-icon name="car-outline"></ion-icon>
+          veículo
+        </label>
+        <div class="input-wrapper">
+          <input
+            class="input-custom"
+            type="text"
+            placeholder="ex: vw fusca 1972, ford maverick..."
+            [(ngModel)]="dados.veiculo"
+          />
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label class="field-label">
+          <span class="label-prefix">//</span>
+          <ion-icon name="chatbox-outline"></ion-icon>
+          descrição do problema
+        </label>
+        <div class="input-wrapper">
+          <textarea
+            class="input-custom textarea"
+            placeholder="descreva o que precisa ser feito..."
+            [(ngModel)]="dados.descricao"
+            rows="4"
+          ></textarea>
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label class="field-label">
+          <span class="label-prefix">//</span>
+          <ion-icon name="call-outline"></ion-icon>
+          whatsapp / telefone
+        </label>
+        <div class="input-wrapper">
+          <input
+            class="input-custom"
+            type="tel"
+            placeholder="(18) 99999-9999"
+            [(ngModel)]="dados.contato"
+          />
+        </div>
+      </div>
+
+      <!-- Preview -->
+      @if (dados.servico || dados.veiculo) {
+        <div class="preview-card">
+          <p class="preview-label">// prévia do orçamento</p>
+          <div class="preview-grid">
+            @if (dados.servico) {
+              <div class="preview-item">
+                <span class="preview-key">serviço</span>
+                <span class="preview-val">{{ dados.servico }}</span>
+              </div>
+            }
+            @if (dados.veiculo) {
+              <div class="preview-item">
+                <span class="preview-key">veículo</span>
+                <span class="preview-val">{{ dados.veiculo }}</span>
+              </div>
+            }
+            @if (dados.contato) {
+              <div class="preview-item">
+                <span class="preview-key">contato</span>
+                <span class="preview-val">{{ dados.contato }}</span>
+              </div>
+            }
+          </div>
+        </div>
+      }
+
+      <!-- ✅ Botão FORA de qualquer outro elemento -->
+      <button
+        class="btn-enviar ion-activatable"
+        (click)="enviar()"
+        [attr.disabled]="carregando ? true : null"
+      >
+        <ion-ripple-effect></ion-ripple-effect>
+        @if (carregando) {
+          <span class="loading-wrap">
+            <span class="spinner"></span>
+            processando
+          </span>
+        } @else {
+          <ion-icon name="logo-whatsapp"></ion-icon>
+          enviar via whatsapp
+          <ion-icon name="send-outline"></ion-icon>
+        }
+      </button>
+
+      <p class="disclaimer">
+        // ao enviar, você será redirecionado ao whatsapp com os dados preenchidos
+      </p>
+
+    </div>
+  }
+
+  <!-- ======================== -->
+  <!--          SUCESSO         -->
+  <!-- ======================== -->
+  @if (enviado) {
+    <div class="success-container">
+
+      <div class="success-icon-wrap">
+        <div class="success-icon">
+          <ion-icon name="checkmark-circle-outline"></ion-icon>
+        </div>
+      </div>
+
+      <div class="success-text">
+        <p class="success-eyebrow">// solicitação registrada</p>
+        <h2 class="success-title">ORÇAMENTO<br><span>ENVIADO!</span></h2>
+        <p class="success-sub">escolha para qual número deseja enviar sua mensagem</p>
+      </div>
+
+      <div class="success-summary">
+        <div class="summary-row">
+          <ion-icon name="hammer-outline"></ion-icon>
+          <span class="summary-key">serviço</span>
+          <span class="summary-val">{{ dados.servico }}</span>
+        </div>
+        <div class="summary-row">
+          <ion-icon name="car-outline"></ion-icon>
+          <span class="summary-key">veículo</span>
+          <span class="summary-val">{{ dados.veiculo }}</span>
+        </div>
+        <div class="summary-row">
+          <ion-icon name="call-outline"></ion-icon>
+          <span class="summary-key">contato</span>
+          <span class="summary-val">{{ dados.contato }}</span>
+        </div>
+      </div>
+
+      <div class="wp-buttons">
+        <a
+          class="btn-wp"
+          [attr.href]="'https://wa.me/5518981212833?text=' + getMsgWhatsApp()"
+          target="_blank"
+        >
+          <ion-icon name="logo-whatsapp"></ion-icon>
+          <div class="wp-info">
+            <span class="wp-label">whatsapp 1</span>
+            <span class="wp-num">(18) 98121-2833</span>
+          </div>
+          <ion-icon name="send-outline" class="wp-arrow"></ion-icon>
+        </a>
+
+        <a
+          class="btn-wp secondary"
+          [attr.href]="'https://wa.me/5518988233636?text=' + getMsgWhatsApp()"
+          target="_blank"
+        >
+          <ion-icon name="logo-whatsapp"></ion-icon>
+          <div class="wp-info">
+            <span class="wp-label">whatsapp 2</span>
+            <span class="wp-num">(18) 98823-3636</span>
+          </div>
+          <ion-icon name="send-outline" class="wp-arrow"></ion-icon>
+        </a>
+      </div>
+
+      <div class="success-actions">
+        <button class="btn-secondary ion-activatable" (click)="novoOrcamento()">
+          <ion-ripple-effect></ion-ripple-effect>
+          <ion-icon name="hammer-outline"></ion-icon>
+          novo orçamento
+        </button>
+
+        <button class="btn-ghost ion-activatable" routerLink="/tabs/home">
+          <ion-ripple-effect></ion-ripple-effect>
+          <ion-icon name="arrow-back-outline"></ion-icon>
+          voltar ao início
+        </button>
+      </div>
+
+    </div>
+  }
+
+</ion-content>

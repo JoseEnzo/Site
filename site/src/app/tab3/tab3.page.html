@@ -1,0 +1,105 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>// meus orçamentos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  @if (usuario) {
+  <div class="saudacao">
+    <p class="eyebrow">sistema ativo</p>
+    <h2>
+      Olá, <span [attr.data-text]="usuario.nome">{{ usuario.nome }}</span>!
+    </h2>
+    <p>seus pedidos de orçamento</p>
+    <div class="status-online">
+      <span class="dot"></span> operador conectado
+    </div>
+  </div>
+  } @else {
+  <div class="nao-logado">
+    <div class="empty-icon-wrap">
+      <ion-icon name="lock-closed-outline"></ion-icon>
+    </div>
+    <p>acesso restrito — identifique-se</p>
+    <ion-button fill="outline" routerLink="/tabs/tab2">Entrar</ion-button>
+  </div>
+  } @if (usuario) {
+  <div class="orcamentos-list">
+    @for (orc of meusOrcamentos; track orc.id) {
+    <div class="orc-card">
+      <div class="card-header">
+        <ion-icon name="car-outline" class="car-icon"></ion-icon>
+        <div class="card-title">
+          <h3>{{ orc.veiculo }}</h3>
+          <p>{{ orc.servico }}</p>
+        </div>
+        <span class="status-badge {{ orc.status || 'pendente' }}">
+          {{ getStatusLabel(orc.status) }}
+        </span>
+      </div>
+
+      <div class="card-body">
+        <p class="descricao"><strong>Descrição:</strong> {{ orc.descricao }}</p>
+
+        <div class="status-track">
+          <p class="track-label">progresso</p>
+          <div class="track-bar">
+            <div class="track-fill {{ orc.status || 'pendente' }}"></div>
+          </div>
+        </div>
+
+        <div class="meta-row">
+          <span class="data">{{ orc.createdAt | date:'dd/MM/yyyy' }}</span>
+          <span class="status-icon">
+            <ion-icon
+              [name]="getStatusLabel(orc.status)"
+              [style.color]="orc.status === 'concluido' ? '#00c853' :
+                                  orc.status === 'cancelado' ? '#cc0000' :
+                                  orc.status === 'em_andamento' ? '#1a3fff' : '#ff3c00'"
+            >
+            </ion-icon>
+          </span>
+        </div>
+        <ion-button color="danger" (click)="confirmarExclusao(orc.id)">
+          Deletar
+          <ion-icon name="trash-outline" slot="end"></ion-icon>
+        </ion-button>
+        <a
+          class="card-contact-btn"
+          [attr.href]="'https://wa.me/5518981212833?text=' + getMsgContato(orc)"
+          target="_blank"
+        >
+          <ion-icon name="logo-whatsapp"></ion-icon>
+          falar sobre este orçamento
+        </a>
+      </div>
+    </div>
+
+    } @empty {
+    <div class="empty-state">
+      <div class="empty-icon-wrap">
+        <ion-icon name="clipboard-outline"></ion-icon>
+      </div>
+      <p>nenhum orçamento registrado</p>
+      <a class="btn-empty" routerLink="/tabs/orcamento">
+        <span class="btn-corner tl"></span>
+        <span class="btn-corner tr"></span>
+        <span class="btn-corner bl"></span>
+        <span class="btn-corner br"></span>
+        <ion-icon name="hammer-outline"></ion-icon>
+        solicitar orçamento
+        <ion-icon name="arrow-forward-outline"></ion-icon>
+      </a>
+    </div>
+    }
+  </div>
+  }
+</ion-content>
